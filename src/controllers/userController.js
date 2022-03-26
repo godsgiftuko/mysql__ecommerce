@@ -123,6 +123,7 @@ export class UserController {
     }
     if (newPassword !== confirmPassword) {
       let error = new Error("Passwords do not match");
+      console.log(error);
       res.render(
         path.resolve(VIEWS, "public", "user", "profile.ejs"), {
           title: "Profile",
