@@ -24,6 +24,8 @@ router.get("/reset", Auth.ensureNotAuthenticated, userController.goToReset);
 router.post("/reset", userController.newPassword);
 router.get("/profile", Auth.ensureAuthenticated, userController.goToProfile);
 router.post("/profile", userController.updateProfile);
+router.get("/edit-profile", Auth.ensureAuthenticated, userController.goToEditProfile);
+router.get("/preferences", Auth.ensureAuthenticated, userController.goToPreferences);
 router.get("/logout", Auth.ensureAuthenticated, userController.logout);
 
 export {

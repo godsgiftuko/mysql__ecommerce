@@ -1,0 +1,68 @@
+<div class="page-content-wrapper">
+    <div class="container">
+      <!-- Profile Wrapper-->
+      <div class="profile-wrapper-area py-3">
+        
+        <%- include ('../partials/messages') %>
+
+        <!-- User Information-->
+        <div class="card user-info-card">
+          <div class="card-body p-4 d-flex align-items-center">
+            <div class="user-profile me-3"><img src="/img/bg-img/9.jpg" alt="">
+              <div class="change-user-thumb">
+                <form>
+                  <input class="form-control-file" type="file">
+                  <button><i class="lni lni-pencil"></i></button>
+                </form>
+              </div>
+            </div>
+            <div class="user-info">
+              <p class="mb-0 text-dark">@store</p>
+              <h5 class="mb-0">
+                <% if(typeof(user) !== "undefined") { %>
+                  <%- user.fullname %>
+                <% } %>
+              </h5>
+            </div>
+          </div>
+        </div>
+        <!-- User Meta Data-->
+        <% if(typeof(user) !== "undefined") { %>
+          <div class="card user-data-card">
+            <div class="card-body">
+              <form action="/user/profile" method="POST">
+                  <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+                <div class="mb-3">
+                  <div class="title mb-2"><i class="lni lni-user"></i><span>Full Name</span></div>
+                  <input class="form-control" type="text" name="profileName" id="profileName" cursorshover="true" placeholder="<%- user.fullname %>" required>
+                </div>
+                <!-- <div class="mb-3">
+                  <div class="title mb-2"><i class="lni lni-phone"></i><span>Phone</span></div>
+                  <input class="form-control" type="text" name="profilePhone" id="profilePhone" placeholder="<%- user.phone %>">
+                </div> -->
+                <!-- <div class="mb-3">
+                  <div class="title mb-2"><i class="lni lni-envelope"></i><span>Email Address</span></div>
+                  <input class="form-control" type="email" name="profileEmail" id="profileEmail" disabled value="<%- user.email %>">
+                </div> -->
+                <!-- <div class="mb-3">
+                  <div class="title mb-2"><i class="lni lni-map-marker"></i><span>Shipping Address</span></div>
+                  <input class="form-control" type="text" name="profileAddress" id="profileAddress" placeholder="<%- user.address %>">
+                </div> -->
+                <div class="mb-3">
+                  <div class="title mb-2"><i class="lni lni-envelope"></i><span>New password</span></div>
+                  <input class="form-control" type="password" id="newPassword" name="newPassword"  value="" minlength="6" required>
+                </div>
+                <div class="mb-3">
+                  <div class="title mb-2"><i class="lni lni-envelope"></i><span>Confirm new password</span></div>
+                  <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" value="" minlength="6" required>
+                </div>
+                <button class="btn btn-success w-100" type="submit">Save All Changes</button>
+              </form>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <%- include ('../partials/footer') %>

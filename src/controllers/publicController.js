@@ -3,16 +3,18 @@ import path from "path";
 
 // Import models
 import { ProductModel } from "../models/ProductModel.js";
-const Product = new ProductModel();
 import { ImageModel } from "../models/ImageModel.js";
-const Image = new ImageModel();
 import { UserModel } from "../models/UserModel.js";
-const User = new UserModel();
 
 // Import VIEWS path
 import {
   VIEWS
 } from "./../config/app-config.js";
+
+const Image = new ImageModel();
+const Product = new ProductModel();
+const User = new UserModel();
+
 
 // Controller class
 export class PublicController {
@@ -239,7 +241,7 @@ export class PublicController {
       promise
         .then(result => {
           req.flash('success_msg', result)
-          res.redirect('/checkout/2')
+          res.redirect('/checkout/1')
         })
         .catch(error => {
           res.render(

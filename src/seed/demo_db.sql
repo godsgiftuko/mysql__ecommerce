@@ -26,6 +26,8 @@ CREATE TABLE customers(
   phone VARCHAR(255),
   ccNumber VARCHAR(255),
   cvvNumber VARCHAR(255),
+  createdAt VARCHAR(255),
+  updatedAt VARCHAR(255),
 CONSTRAINT PK_CUSTOMER PRIMARY KEY(id)
 );
 

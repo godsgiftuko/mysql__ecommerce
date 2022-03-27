@@ -1,6 +1,107 @@
-<%- include ('../partials/navbar.ejs') %>
+<%- include ('../partials/navbar2') %>
 
-<div class="checkout-3 p-5">
+<div class="page-content-wrapper">
+  <div class="container">
+    <!-- Checkout Wrapper-->
+    <div class="checkout-wrapper-area py-3">
+      <!-- Credit Card Info-->
+      <div class="credit-card-info-wrapper"><img class="d-block mb-4" src="/img/bg-img/credit-card.png" alt="">
+        <div class="pay-credit-card-form">
+          <form action="" method="">
+            <div class="mb-3">
+              <label for="cardNumber">Credit Card Number</label>
+              <input class="form-control" type="text" id="cardNumber" placeholder="1234 ×××× ×××× ××××" value=""><small class="ms-1"><i class="fa fa-lock me-1"></i>Your payment info is stored securely.<a class="ms-1" href="#">Learn More</a></small>
+            </div>
+            <div class="mb-3">
+              <label for="cardholder" cursorshover="true">Cardholder Name</label>
+              <input class="form-control" type="text" id="cardholder" placeholder="SUHA JANNAT" value="">
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="expiration">Exp. Date</label>
+                  <input class="form-control" type="text" id="expiration" placeholder="12/20" value="">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="cvvcode">CVV Code</label>
+                  <input class="form-control" type="text" id="cvvcode" placeholder="××××" value="">
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-warning btn-lg w-100" type="submit">Pay Now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="checkout-2 p-5 d-none">
+  <div class="container-fluid">
+    <h4 class="h4 text-center">
+      Checkout process
+    </h4>
+    <h5 class="h5 text-center pb-3 mb-3 border-bottom">
+      Payment information
+    </h5>
+
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        
+        <%- include ('../partials/messages.ejs') %>
+        
+        <form action="/checkout/2" method="POST">
+          <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+          
+          <div class="form-group mb-2">
+            <label for="ccNumber">Credit Card Number:</label>
+            <input 
+              class="form-control" 
+              type="text" 
+              name="ccNumber" 
+              id="ccNumber" 
+              required 
+              <% if(typeof(ccNumber) !== "undefined") { %>
+                value="<%- ccNumber %>"
+              <% } %>
+              <% if(user.ccNumber !== null) { %>
+                value="<%- user.ccNumber %>"
+              <% } %>
+            >
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="cvvNumber">CVV Number:</label>
+            <input 
+              class="form-control" 
+              type="text" 
+              name="cvvNumber" 
+              id="cvvNumber" 
+              required 
+              <% if(typeof(cvvNumber) !== "undefined") { %>
+                value="<%- cvvNumber %>"
+              <% } %>
+              <% if(user.cvvNumber !== null) { %>
+                value="<%- user.cvvNumber %>"
+              <% } %>
+            >
+          </div>
+
+          <a href="/checkout/1" class="btn btn-secondary">Back</a>
+          <button type="submit" class="btn btn-primary">
+            Next
+          </button>
+        </form>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="checkout-3 p-5 d-none">
   <div class="container-fluid">
     <h4 class="h4 text-center">
       Checkout process

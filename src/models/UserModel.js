@@ -12,7 +12,7 @@ export class UserModel {
 
   create(array){
     return new Promise((resolve, reject) => {
-      this.con.query("INSERT INTO customers (fullname, email, password) VALUES (?, ?, ?)", array, (error, result) => {
+      this.con.query("INSERT INTO customers (fullname, email, password, createdAt) VALUES (?, ?, ?, ?)", array, (error, result) => {
         if (error) {
           reject(error)
         } else {
@@ -58,7 +58,7 @@ export class UserModel {
         if (error) {
           reject(error)
         } else {
-          resolve("New password sent to email " + customer.email);
+          resolve("New password sent to email: " + customer.email);
         }
       })
     })
@@ -66,23 +66,30 @@ export class UserModel {
 
   update(customer, array){
     return new Promise((resolve, reject) => {
-      if (array[2] == '') {
-        this.con.query("UPDATE customers SET fullname = ?, email = ? WHERE id = ?", [array[0], array[1], customer.id], (error, result) => {
-          if (error) {
-            reject(error)
-          } else {
-            resolve("User updated successfully");
-          }
-        })
-      } else {
-        this.con.query("UPDATE customers SET fullname = ?, email = ?, password = ? WHERE id = ?", [array[0], array[1], array[2], customer.id], (error, result) => {
-          if (error) {
-            reject(error)
-          } else {
-            resolve("User updated successfully");
-          }
-        })
-      }
+      this.con.query("UPDATE customers SET fullname = ?, password = ?, updatedAt = ? WHERE id = ?", [array[0], array[1], array[2], customer.id], (error, result) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve("User updated successfully");
+        }
+      });
+      // if (array[2] == '') {
+      //   this.con.query("UPDATE customers SET fullname = ?, email = ? WHERE id = ?", [array[0], array[1], customer.id], (error, result) => {
+      //     if (error) {
+      //       reject(error)
+      //     } else {
+      //       resolve("User updated successfully");
+      //     }
+      //   })
+      // } else {
+      //   this.con.query("UPDATE customers SET fullname = ?, email = ?, password = ? WHERE id = ?", [array[0], array[1], array[2], customer.id], (error, result) => {
+      //     if (error) {
+      //       reject(error)
+      //     } else {
+      //       resolve("User updated successfully");
+      //     }
+      //   })
+      // }
     })
   }
 

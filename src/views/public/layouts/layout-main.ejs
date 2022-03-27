@@ -1,22 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" data-ember-extension="1" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, shrink-to-fit=no">
+  <meta name="description" content="Suha - Multipurpose Ecommerce Mobile HTML Template">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <% if(typeof(csrfToken) !== "undefined") { %>
     <meta name="csrf-token" content="<%- csrfToken %>">
   <% } %>
+  <meta name="theme-color" content="#100DD1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- The above tags *must* come first in the head, any other head content must come *after* these tags-->
+  <!-- Title-->
   <title><%- title %></title>
-  <link rel="stylesheet" type="text/css" href="/styles/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="/styles/css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+  <!-- Favicon-->
+  <link rel="icon" href="img/icons/icon-72x72.png">
+  <!-- Apple Touch Icon-->
+  <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+  <!-- CSS Libraries-->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+  <link rel="stylesheet" href="/styles/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/styles/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/css/animate.css">
+  <link rel="stylesheet" href="/styles/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/styles/css/lineicons.min.css">
+  <link rel="stylesheet" href="/styles/css/magnific-popup.css">
+  <!-- Stylesheet-->
+  <link rel="stylesheet" href="/styles/css/style.css">
+  <!-- Web App Manifest-->
+  <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" href="/img/logo.png"/>
-  <script type="text/javascript" src="/js/jquery.js"></script>
-  <script type="text/javascript" src="/js/bootstrap.js"></script>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <!-- <title><%- title %></title> -->
+  <!-- <link rel="stylesheet" type="text/css" href="/styles/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/styles/css/main.css"> -->
+  <!-- <script type="text/javascript" src="/js/jquery.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.js"></script> -->
 </head>
 
 <body>
+   <!-- Preloader-->
+  <div class="preloader d-none" id="preloader">
+    <div class="spinner-grow text-secondary" role="status">
+        <div class="sr-only">Loading...</div>
+    </div>
+  </div>
+
   <%- body %>
+
+   <!-- PWA -->
+   <div class="toast pwa-install-alert shadow bg-white fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000" data-bs-autohide="true">
+    <div class="toast-body">
+      <div class="content d-flex align-items-center mb-2"><img src="img/icons/icon-72x72.png" alt="">
+        <h6 class="mb-0">Add to Home Screen</h6>
+        <button class="btn-close ms-auto" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div><span class="mb-0 d-block">Add Suha on your mobile home screen. Click the<strong class="mx-1">Add to Home Screen</strong>button &amp; enjoy it like a regular app.</span>
+    </div>
+  </div>
+
+  <!-- Offline Area -->
+  <!-- <div class="offline-area-wrapper py-3 d-flex align-items-center justify-content-center">
+    <div class="offline-text text-center"><img class="mb-4 px-4" src="img/bg-img/no-internet.png" alt="">
+      <h5>No Internet Connection!</h5>
+      <p>Seems like you're offline, please check your internet connection. This page doesn't support when you offline!</p><a class="btn btn-primary" href="home.html">Back Home</a>
+    </div>
+  </div> -->
+  
+  <!-- Internet Connection Status-->
+  <div class="internet-connection-status" id="internetStatus"></div>
+
+  <!-- All JavaScript Files-->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/waypoints.min.js"></script>
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
+  <script src="js/jquery.counterup.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/jquery.passwordstrength.js"></script>
+  <script src="js/dark-mode-switch.js"></script>
+  <script src="js/no-internet.js"></script>
+  <script src="js/active.js"></script>
+  <script src="js/pwa.js"></script>
 </body>
 
 </html>
+
