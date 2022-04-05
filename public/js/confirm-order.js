@@ -1,3 +1,12 @@
+$('#terms').on('click', function() {
+  const btn = $('#btn-confirmOrder');
+  if ($(this).prop('checked')) {
+    btn.removeAttr('disabled');
+    return;
+  }
+  btn.attr('disabled', 'true');
+});
+
 $('#btn-confirmOrder').on('click', function() {
 
   let termsAccepted = $('#terms').is(':checked');
@@ -8,7 +17,6 @@ $('#btn-confirmOrder').on('click', function() {
     $('#alert-noTerms span').text('Please accept the terms and conditions')
     $('#alert-noTerms').fadeIn(800).delay(2000).fadeOut(800)
   } else {
-
     let customerId = parseInt($(this).attr('data-userid'));
     let totalOrder = parseFloat($('#totalOrder').text());
     let products = [];
@@ -26,7 +34,7 @@ $('#btn-confirmOrder').on('click', function() {
     })
 
     $.ajax({
-      url: '/checkout/3',
+      url: '/checkout/4',
       xhrFields: { withCredentials: true },
       headers: { 'x-csrf-token': token },
       method: 'POST',
@@ -41,7 +49,7 @@ $('#btn-confirmOrder').on('click', function() {
         $('#alert-ajax').fadeIn(800).delay(2000).fadeOut(800)
       } else if (response == "All items removed from the cart") {
         let urlParts = window.location.href.split("/");
-        urlParts[urlParts.length - 1] = 4;
+        urlParts[urlParts.length - 1] = 5;
         let newUrl = urlParts.join("/");
         window.location.href = newUrl;
       }

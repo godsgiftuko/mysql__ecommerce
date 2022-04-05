@@ -14,7 +14,7 @@ import {
 const Image = new ImageModel();
 const Product = new ProductModel();
 const User = new UserModel();
-
+const currency = '₦'; 
 
 // Controller class
 export class PublicController {
@@ -35,6 +35,7 @@ export class PublicController {
       
       res.render(
         path.resolve(VIEWS, "public", "homepage"), {
+          currency,
           title: "Homepage",
           images: images,
           products: products,
@@ -59,6 +60,7 @@ export class PublicController {
         cart = await Product.getUserCart(user.id);
       }
       res.send({
+        currency,
         products: products,
         images: images,
         cart: cart
@@ -74,12 +76,14 @@ export class PublicController {
       let images = await Image.getByProductId(req.params.id);
       let user = req.user;
       let cart = [];
+      
       if (typeof(user) !== "undefined") {
         cart = await Product.getUserCart(user.id);
       }
 
       res.render(
         path.resolve(VIEWS, "public", "product", "product-details"), {
+          currency,
           title: "Product",
           product: product,
           images: images,
@@ -107,6 +111,7 @@ export class PublicController {
 
     res.render(
       path.resolve(VIEWS, "public", "product", "cart.ejs"), {
+        currency,
         title: "Shopping cart",
         user: user,
         cart: cart,
@@ -120,9 +125,11 @@ export class PublicController {
   async addToCart(req, res){
     try{
       const { customer_id, product_id } = req.body
+
       let resultStock = await Product.updateStock(product_id, -1)
       let resultCart = await Product.createInCart(customer_id, product_id)
       res.send({
+        currency,
         messageStock: resultStock,
         messageCart: resultCart
       });
@@ -140,7 +147,9 @@ export class PublicController {
       let cartItems = await Product.getCartItem(customer_id, product_id)
       let resultStock = await Product.updateStock(product_id, cartItems[0].quantity)
       let resultCart = await Product.deleteInCart(customer_id, product_id)
+
       res.send({
+        currency,
         messageStock: resultStock,
         messageCart: resultCart
       });
@@ -161,6 +170,7 @@ export class PublicController {
       let resultCart = await Product.updateInCart(customer_id, product_id, new_quantity)
 
       res.send({
+        currency,
         messageStock: resultStock,
         messageCart: resultCart
       });
@@ -192,6 +202,7 @@ export class PublicController {
 
     res.render(
       path.resolve(VIEWS, "public", "product", checkoutView), {
+        currency,
         title: "Checkout",
         user: user,
         cart: cart,
@@ -225,6 +236,7 @@ export class PublicController {
       let error = new Error("Invalid input fields")
       res.render(
         path.resolve(VIEWS, "public", "product", "checkout-1.ejs"), {
+          currency,
           title: "Checkout",
           address: address,
           zipCode: zipCode,
@@ -246,6 +258,7 @@ export class PublicController {
         .catch(error => {
           res.render(
             path.resolve(VIEWS, "public", "product", "checkout-1.ejs"), {
+              currency,
               title: "Checkout",
               address: address,
               zipCode: zipCode,
@@ -275,29 +288,30 @@ export class PublicController {
     // Form validation
     let validated = true;
 
-    let ccNumberCurated = ccNumber.replace(/-/g, "")
-    ccNumberCurated = ccNumberCurated.replace(/ /g, "")
-    let cvvNumberCurated = cvvNumber.replace(/-/g, "")
-    cvvNumberCurated = cvvNumberCurated.replace(/ /g, "")
+    // let ccNumberCurated = ccNumber.replace(/-/g, "")
+    // ccNumberCurated = ccNumberCurated.replace(/ /g, "")
+    // let cvvNumberCurated = cvvNumber.replace(/-/g, "")
+    // cvvNumberCurated = cvvNumberCurated.replace(/ /g, "")
 
     let regExVisa = /^4[0-9]{12}(?:[0-9]{3})?$/;
     let regExMastercard = /^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$/;
     let regExCVV = /^([0-9]{3,4})$/;
 
     let error;
-    if (!regExCVV.test(cvvNumberCurated)){
-      validated = false
-      error = new Error("Invalid CVV number")
-    }
-    if(!regExVisa.test(ccNumberCurated) && !regExMastercard.test(ccNumberCurated)){
-      validated = false
-      error = new Error("Invalid Credit Card number")
-    }
+    // if (!regExCVV.test(cvvNumberCurated)){
+    //   validated = false
+    //   error = new Error("Invalid CVV number")
+    // }
+    // if(!regExVisa.test(ccNumberCurated) && !regExMastercard.test(ccNumberCurated)){
+    //   validated = false
+    //   error = new Error("Invalid Credit Card number")
+    // }
 
     if(!validated){
       res.render(
-        path.resolve(VIEWS, "public", "product", "checkout-2.ejs"), {
-          title: "Checkout",
+        path.resolve(VIEWS, "public", "product", "checkout-3.ejs"), {
+          currency,
+          title: "Credit Card",
           ccNumber: ccNumber,
           cvvNumber: cvvNumber,
           message: error,
@@ -311,12 +325,13 @@ export class PublicController {
       promise
         .then(result => {
           req.flash('success_msg', result)
-          res.redirect('/checkout/3')
+          res.redirect('/checkout/4')
         })
         .catch(error => {
           res.render(
-            path.resolve(VIEWS, "public", "product", "checkout-2.ejs"), {
-              title: "Checkout",
+            path.resolve(VIEWS, "public", "product", "checkout-4.ejs"), {
+              currency,
+              title: "Credit Card",
               ccNumber: ccNumber,
               cvvNumber: cvvNumber,
               message: error,
@@ -334,7 +349,9 @@ export class PublicController {
       customer_id,
       total_order,
       products_stringified
-    } = req.body
+    } = req.body;
+
+    console.log(req.body);
 
     const products = JSON.parse(products_stringified);
 
@@ -348,15 +365,16 @@ export class PublicController {
         })
       })
       .catch(e => {
-        res.send(e.message)
+        res.send(e.message);
       })
-
-    Promise.all(promises)
+      
+      Promise.all(promises)
       .then(() => {
         return Product.deleteUserCart(customer_id)
       })
       .then(result => {
-        res.send(result)
+        req.flash('success_msg',result);
+        res.send(result);
       })
       .catch(error => {
         res.send(error.message)

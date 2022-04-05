@@ -29,9 +29,12 @@ import {
   APP_PORT,
   VIEWS,
   options,
-  cookie
+  cookie,
+  con_createDb
 } from "./src/config/app-config.js";
 
+import runDatabase from './src/seed/db_creation.js';
+runDatabase()
 let MySQLStore = MySQLSession(session);
 let sessionStore = new MySQLStore(options);
 

@@ -1,4 +1,4 @@
-$('.quantity').on('change', function() {
+$('input[name="quantity"').on('change', function() {
   let customerId = parseInt($(this).attr('data-userid'));
   let productId = parseInt($(this).attr('data-productid'));
   let newQty = parseInt($(this).val());
@@ -13,7 +13,7 @@ $('.quantity').on('change', function() {
     // Update cart item quantity if possible (check for stock)
     action = "updateCart"
   }
-
+  
   $.ajax({
     url: '/cart/' + action,
     xhrFields: { withCredentials: true },
@@ -30,23 +30,27 @@ $('.quantity').on('change', function() {
       $('.alert-danger').fadeIn(800).delay(2000).fadeOut(800);
       $('.alert-danger').removeClass('d-none');
     }
-
+    
     if (response.messageCart == "Product updated in customer cart") {
       console.log(response.messageCart);
     } else if (response.messageCart == "Product removed from customer cart") {
       console.log(response.messageCart);
       let productCount = parseInt($('#productCount').text());
       $('#productCount').text(productCount - 1);
-      $(this).parent().parent().remove();
-      if ($('.product').length == 0) {
+      $(this).parents('tr').remove();
+      if ($('table tbody').children().length == 0) {
         let paragraph = `
-          <div class="row no-products">
+          <div class="row no-products text-center">
             <h5 class="h6 mx-auto my-3">
               There are no more products in your cart.
             </h5>
           </div>
         `;
-        $('.header-cart').after(paragraph);
+
+        
+        $('.total-price span').html('0.00');
+        $('.coupon-card').hide();
+        $('.header-cart').append(paragraph);
         $('#btn-checkout').addClass('disabled');
       }
     }

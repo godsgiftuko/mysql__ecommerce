@@ -1,3 +1,5 @@
+<%- include ('../partials/navbar2') %>
+
 <div class="page-content-wrapper">
     <div class="container">
       <!-- Profile Wrapper-->
@@ -34,7 +36,7 @@
                   <input type="hidden" name="_csrf" value="<%- csrfToken %>">
                 <div class="mb-3">
                   <div class="title mb-2"><i class="lni lni-user"></i><span>Full Name</span></div>
-                  <input class="form-control" type="text" name="profileName" id="profileName" cursorshover="true" placeholder="<%- user.fullname %>" required>
+                  <input class="form-control" type="text" name="profileName" id="profileName" cursorshover="true" placeholder="<%- user.fullname %>">
                 </div>
                 <!-- <div class="mb-3">
                   <div class="title mb-2"><i class="lni lni-phone"></i><span>Phone</span></div>
@@ -50,11 +52,11 @@
                 </div> -->
                 <div class="mb-3">
                   <div class="title mb-2"><i class="lni lni-envelope"></i><span>New password</span></div>
-                  <input class="form-control" type="password" id="newPassword" name="newPassword"  value="" minlength="6" required>
+                  <input class="form-control" type="password" id="newPassword" name="newPassword"  value="" minlength="6">
                 </div>
                 <div class="mb-3">
                   <div class="title mb-2"><i class="lni lni-envelope"></i><span>Confirm new password</span></div>
-                  <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" value="" minlength="6" required>
+                  <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" value="" minlength="6">
                 </div>
                 <button class="btn btn-success w-100" type="submit">Save All Changes</button>
               </form>

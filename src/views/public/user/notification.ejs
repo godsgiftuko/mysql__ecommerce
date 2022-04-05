@@ -1,0 +1,65 @@
+<%- include ('../partials/navbar2') %>
+
+<div class="page-content-wrapper">
+    <div class="container">
+      <!-- Section Heading-->
+      <% if (ordersItems.length) {%>
+      <div class="section-heading d-flex align-items-center pt-3 justify-content-between">
+        <h6>Notification(s)</h6><a class="notification-clear-all text-secondary" href="#">Clear All</a>
+      </div>
+      <!-- Notifications Area-->
+      <div class="notification-area pb-2">
+        <div class="list-group">
+                <% const notyList = [] %>
+                <% lastOrders.forEach((order) => {%>
+                  <% ordersItems.forEach((item) => {%>
+                    <% if (item.order_id == order.id) { %>
+                      <% notyList.push(order) %>
+
+                    <% } %>
+                  <% }) %>
+                       <!-- Single Notification--><a class="list-group-item readed d-flex align-items-center" href="#"><span class="noti-icon"><i class="lni lni-ship"></i></span>
+                        <div class="noti-info">
+                          <h6 class="mb-0">Your order has been shipped.</h6><span class="noti-date" order-date="<%- notyList[0].order_date %>"></span>
+                        </div></a>
+                  <% console.log(notyList) %>
+                <% }) %>
+
+
+
+                <a class="list-group-item readed d-flex align-items-center" href="notification-details.html"><span class="noti-icon"><i class="lni lni-heart-filled"></i></span>
+                  <div class="noti-info">
+                    <h6 class="mb-0">Your wishlist is updated.</h6><span>2 days ago</span>
+                  </div></a>
+                  <a class="list-group-item d-flex align-items-center" href="notification-details.html"><span class="noti-icon"><i class="lni lni-alarm"></i></span>
+                  <div class="noti-info">
+                      <h6 class="mb-0">Giftstore just uploaded a new product!</h6><span>12 min ago</span>
+                      </div></a> <!--
+                       <a class="list-group-item d-flex align-items-center" href="notification-details.html"><span class="noti-icon"><i class="lni lni-dropbox"></i></span>
+                  <div class="noti-info">
+                      <h6 class="mb-0">Black Friday Deals in One Place</h6><span>49 min ago</span>
+                    </div></a>
+                  <a class="list-group-item d-flex align-items-center" href="notification-details.html"><span class="noti-icon"><i class="lni lni-reply"></i></span>
+                    <div class="noti-info">
+                      <h6 class="mb-0">Share your experience, it's matters!</h6><span>58 min ago</span>
+                    </div></a> -->
+        </div>
+      </div>
+      <% } else {%>
+          <div class="d-flex flex-column justify-content-center align-items-center" style="height: 50vh;">
+              No notification
+              <span class="noti-icon my-4"><i class="lni fs-1 lni-emoji-sad"></i></span>
+          </div>
+      <% } %>
+    </div>
+  </div>
+
+<%- include ('../partials/footer') %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $(function() {
+    const notyDate = $(".noti-date").attr("order-date");
+    $(".noti-date").html(moment(notyDate).fromNow());
+  });
+</script>

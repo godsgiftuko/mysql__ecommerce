@@ -65,31 +65,16 @@ export class UserModel {
   }
 
   update(customer, array){
+    const [fullname, password, updatedAt] = array;
+    
     return new Promise((resolve, reject) => {
-      this.con.query("UPDATE customers SET fullname = ?, password = ?, updatedAt = ? WHERE id = ?", [array[0], array[1], array[2], customer.id], (error, result) => {
+      this.con.query("UPDATE customers SET fullname = ?, password = ?, updatedAt = ? WHERE id = ?", [fullname, password, updatedAt, customer.id], (error, result) => {
         if (error) {
           reject(error)
         } else {
-          resolve("User updated successfully");
+          resolve(true);
         }
       });
-      // if (array[2] == '') {
-      //   this.con.query("UPDATE customers SET fullname = ?, email = ? WHERE id = ?", [array[0], array[1], customer.id], (error, result) => {
-      //     if (error) {
-      //       reject(error)
-      //     } else {
-      //       resolve("User updated successfully");
-      //     }
-      //   })
-      // } else {
-      //   this.con.query("UPDATE customers SET fullname = ?, email = ?, password = ? WHERE id = ?", [array[0], array[1], array[2], customer.id], (error, result) => {
-      //     if (error) {
-      //       reject(error)
-      //     } else {
-      //       resolve("User updated successfully");
-      //     }
-      //   })
-      // }
     })
   }
 

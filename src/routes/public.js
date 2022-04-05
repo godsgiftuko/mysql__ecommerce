@@ -25,8 +25,8 @@ router.post("/cart/removeFromCart", Auth.ensureAuthenticated, publicController.r
 router.post("/cart/updateCart", Auth.ensureAuthenticated, publicController.updateCart);
 router.get("/checkout/:step", Auth.ensureAuthenticated, publicController.goToCheckout);
 router.post("/checkout/1", Auth.ensureAuthenticated, publicController.validateShipping);
-router.post("/checkout/2", Auth.ensureAuthenticated, publicController.validatePayment);
-router.post("/checkout/3", Auth.ensureAuthenticated, publicController.confirmOrder);
+router.post("/checkout/3", Auth.ensureAuthenticated, publicController.validatePayment);
+router.post("/checkout/4", Auth.ensureAuthenticated, publicController.confirmOrder);
 
 export {
   router

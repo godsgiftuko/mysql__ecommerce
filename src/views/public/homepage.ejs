@@ -1,14 +1,4 @@
 <%- include ('partials/navbar.ejs') %>
-
-<!-- PWA Install Alert -->
-<div class="toast pwa-install-alert shadow bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000" data-bs-autohide="true">
-  <div class="toast-body">
-      <div class="content d-flex align-items-center mb-2"><img src="/img/icons/icon-72x72.png" alt="">
-          <h6 class="mb-0">Add to Home Screen</h6>
-          <button class="btn-close ms-auto" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div><span class="mb-0 d-block">Add Suha on your mobile home screen. Click the<strong class="mx-1">Add to Home Screen</strong>button &amp; enjoy it like a regular app.</span>
-  </div>
-</div>
 <div class="page-content-wrapper">
   <div class="container">
       <div class="pt-3">
@@ -28,7 +18,7 @@
                   <div class="slide-content h-100 d-flex align-items-center">
                       <div class="slide-text">
                           <h4 class="text-white mb-0" data-animation="fadeInUp" data-delay="100ms" data-duration="1000ms">Light Candle</h4>
-                          <p class="text-white" data-animation="fadeInUp" data-delay="400ms" data-duration="1000ms">Now only $22</p><a class="btn btn-success btn-sm" href="#" data-animation="fadeInUp" data-delay="500ms" data-duration="1000ms">Buy Now</a>
+                          <p class="text-white" data-animation="fadeInUp" data-delay="400ms" data-duration="1000ms">Now only ₦22</p><a class="btn btn-success btn-sm" href="#" data-animation="fadeInUp" data-delay="500ms" data-duration="1000ms">Buy Now</a>
                       </div>
                   </div>
               </div>
@@ -132,60 +122,24 @@
           </div>
           <!-- Flash Sale Slide-->
           <div class="flash-sale-slide owl-carousel">
-              <!-- Single Flash Sale Card-->
+              <% products.forEach((product) => { %>
+                <% const flashProductImages = [] %>
+                <% images.forEach((image) => { %>
+                    <% if (product.id == image.product_id) { %>
+                        <% flashProductImages.push(image); %>
+                    <% } %>
+                <% }) %>
+                <% const precentageSold = Math.random() * 100 %>
+                <!-- Single Flash Sale Card-->
               <div class="card flash-sale-card">
-                  <div class="card-body"><a href="single-product.html"><img src="/img/product/1.png" alt=""><span class="product-title">Black Table Lamp</span>
-            <p class="sale-price">$7.99<span class="real-price">$15</span></p><span class="progress-title">33% Sold Out</span>
-            <!-- Progress Bar-->
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
-            </div></a></div>
-              </div>
-              <!-- Single Flash Sale Card-->
-              <div class="card flash-sale-card">
-                  <div class="card-body"><a href="single-product.html"><img src="/img/product/2.png" alt=""><span class="product-title">Modern Sofa</span>
-            <p class="sale-price">$14<span class="real-price">$21</span></p><span class="progress-title">57% Sold Out</span>
-            <!-- Progress Bar-->
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
-            </div></a></div>
-              </div>
-              <!-- Single Flash Sale Card-->
-              <div class="card flash-sale-card">
-                  <div class="card-body"><a href="single-product.html"><img src="/img/product/3.png" alt=""><span class="product-title">Classic Garden Chair</span>
-            <p class="sale-price">$36<span class="real-price">$49</span></p><span class="progress-title">99% Sold Out</span>
-            <!-- Progress Bar-->
-            <div class="progress">
-              <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-            </div></a></div>
-              </div>
-              <!-- Single Flash Sale Card-->
-              <div class="card flash-sale-card">
-                  <div class="card-body"><a href="single-product.html"><img src="/img/product/1.png" alt=""><span class="product-title">Black Table Lamp</span>
-            <p class="sale-price">$7.99<span class="real-price">$15</span></p><span class="progress-title">33% Sold Out</span>
-            <!-- Progress Bar-->
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
-            </div></a></div>
-              </div>
-              <!-- Single Flash Sale Card-->
-              <div class="card flash-sale-card">
-                  <div class="card-body"><a href="single-product.html"><img src="/img/product/2.png" alt=""><span class="product-title">Modern Sofa</span>
-            <p class="sale-price">$14<span class="real-price">$21</span></p><span class="progress-title">57% Sold Out</span>
-            <!-- Progress Bar-->
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 57%" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
-            </div></a></div>
-              </div>
-              <!-- Single Flash Sale Card-->
-              <div class="card flash-sale-card">
-                  <div class="card-body"><a href="single-product.html"><img src="/img/product/3.png" alt=""><span class="product-title">Classic Garden Chair</span>
-            <p class="sale-price">$36<span class="real-price">$49</span></p><span class="progress-title">99% Sold Out</span>
-            <!-- Progress Bar-->
-            <div class="progress">
-              <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-            </div></a></div>
-              </div>
+                    <div class="card-body"><a href="/product/<%- product.id %>"><img src="<%- flashProductImages[0].path %>" alt=""><span class="product-title"><%- product.title %></span>
+                        <p class="sale-price"><%- currency %><%- product.price  %><span class="real-price"></span></p><span class="progress-title"><%- Math.round(precentageSold) %>% Sold Out</span>
+                        <!-- Progress Bar-->
+                        <div class="progress">
+                        <div class="progress-bar bg-<%- precentageSold > 60 ? 'danger' : 'success' %>" role="progressbar" style="width: <%- precentageSold %>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div></a></div>
+                </div>
+              <% }) %>
           </div>
       </div>
   </div>
@@ -196,116 +150,120 @@
               <h6>Top Products</h6><a class="btn" href="shop-grid.html">View All</a>
           </div>
           <div class="row g-3">
+              <% if (products.length) { %>
+                <% products.forEach((product) => { %>
+
+
+                    <% if (!product.stock) return %>
+                    <% const productImages = [] %>
+                    
+                    <% images.forEach((image) => { %>
+                        <% if (product.id == image.product_id) { %>
+                            <% productImages.push(image) %>
+                        <% } %>
+                    <% }) %>
+
+
+                    <!-- Single Top Product Card -->
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card product-card">
+                            <div class="card-body">
+                                <span class="badge rounded-pill badge-warning">Sale</span>
+                                <!-- <span class="badge rounded-pill badge-success">New</span> -->
+                                <!-- <span class="badge rounded-pill badge-danger">-18%</span> -->
+
+                                <!-- Wishlist Button--><a class="wishlist-btn" href="#"><i class="lni lni-heart">                       </i></a>
+                                <!-- Thumbnail --><a class="product-thumbnail d-block" href="/product/<%- product.id %>"><img class="mb-2" src="<%- productImages[0].path %>" alt="">
+
+                                <% if (product.flashsale) { %>
+                                    <!-- Offer Countdown Timer: Please use event time this format: YYYY/MM/DD hh:mm:ss -->
+                                    <ul class="offer-countdown-timer d-flex align-items-center shadow-sm" data-countdown="2021/12/31 23:59:59">
+                                        <li><span class="days">0</span>d</li>
+                                        <li><span class="hours">0</span>h</li>
+                                        <li><span class="minutes">0</span>m</li>
+                                        <li><span class="seconds">0</span>s</li>
+                                    </ul>
+                                <% } %>
+                </a>
+                                <!-- Product Title --><a class="product-title d-block" href="/product/<%- product.id %>"><%- product.title %></a>
+                                <!-- Product Price -->
+                                <p class="sale-price"><%- currency %><%- product.price %>
+                                    <% if (product.discount) { %>
+                                        <span><%- currency %><%- product.discount %></span>
+                                    <% } %>
+                                </p>
+                                <!-- Rating -->
+                                <div class="product-rating"><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i></div>
+                                <button
+                                type="button"
+                                data-listener="true"
+                                    <% let found = false %>
+                                    <% cart.forEach(item => { %>
+                                      <% if(item.product_id == product.id) { %>
+                                        <% found = true %>
+                                      <% } %>
+                                    <% }) %>
+
+                                    <% if (found) { %>
+                                        class="btn btn-danger btn-sm btn-cart"
+                                    <% } else { %>
+                                        class="btn btn-success btn-sm btn-cart" 
+                                    <% } %>
+
+                                    data-productId="<%- product.id %>"
+
+                                    <% if(product.stock == 0 || typeof(user) == "undefined") { %>
+                                      disabled
+                                    <% } %>
+
+                                    <% if(typeof(user) == "undefined") { %>
+                                      data-userId=""
+                                    <% } else { %>
+                                      data-userId="<%- user.id %>"
+                                    <% } %>
+                                    cart-action="addToCart"
+                                  >
+                                    <% found = false %>
+
+                                    <% cart.forEach(item => { %>
+                                      <% if(item.product_id == product.id) { %>
+                                        <% found = true %>
+                                      <% } %>
+                                    <% }) %>
+                                    <% if (found) { %>
+                                        <i class="lni lni-minus"></i>
+                                    <% } else { %>
+                                        <i class="lni lni-plus"></i>
+                                    <% } %>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+              <% } %>
               <!-- Single Top Product Card -->
               <div class="col-6 col-md-4 col-lg-3">
-                  <div class="card product-card">
-                      <div class="card-body">
-                          <!-- Badge--><span class="badge rounded-pill badge-warning">Sale</span>
-                          <!-- Wishlist Button--><a class="wishlist-btn" href="#"><i class="lni lni-heart">                       </i></a>
-                          <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img class="mb-2" src="/img/product/11.png" alt="">
-              <!-- Offer Countdown Timer: Please use event time this format: YYYY/MM/DD hh:mm:ss -->
-              <ul class="offer-countdown-timer d-flex align-items-center shadow-sm" data-countdown="2021/12/31 23:59:59">
-                <li><span class="days">0</span>d</li>
-                <li><span class="hours">0</span>h</li>
-                <li><span class="minutes">0</span>m</li>
-                <li><span class="seconds">0</span>s</li>
-              </ul></a>
-                          <!-- Product Title --><a class="product-title d-block" href="single-product.html">Beach Cap</a>
-                          <!-- Product Price -->
-                          <p class="sale-price">$13<span>$42</span></p>
-                          <!-- Rating -->
-                          <div class="product-rating"><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i></div>
-                          <!-- Add to Cart --><a class="btn btn-success btn-sm" href="#"><i class="lni lni-plus"></i></a>
-                      </div>
-                  </div>
-              </div>
-              <!-- Single Top Product Card -->
-              <div class="col-6 col-md-4 col-lg-3">
-                  <div class="card product-card">
-                      <div class="card-body">
-                          <!-- Badge--><span class="badge rounded-pill badge-success">New</span>
-                          <!-- Wishlist Button--><a class="wishlist-btn" href="#"><i class="lni lni-heart">                       </i></a>
-                          <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img class="mb-2" src="/img/product/5.png" alt=""></a>
-                          <!-- Product Title --><a class="product-title d-block" href="single-product.html">Wooden Sofa</a>
-                          <!-- Product Price -->
-                          <p class="sale-price">$74<span>$99</span></p>
-                          <!-- Rating -->
-                          <div class="product-rating"><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i></div>
-                          <!-- Add to Cart --><a class="btn btn-success btn-sm" href="#"><i class="lni lni-plus"></i></a>
-                      </div>
-                  </div>
-              </div>
-              <!-- Single Top Product Card -->
-              <div class="col-6 col-md-4 col-lg-3">
-                  <div class="card product-card">
-                      <div class="card-body">
-                          <!-- Badge--><span class="badge rounded-pill badge-success">Sale</span>
-                          <!-- Wishlist Button--><a class="wishlist-btn" href="#"><i class="lni lni-heart">                       </i></a>
-                          <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img class="mb-2" src="/img/product/6.png" alt=""></a>
-                          <!-- Product Title --><a class="product-title d-block" href="single-product.html">Roof Lamp</a>
-                          <!-- Product Price -->
-                          <p class="sale-price">$99<span>$113</span></p>
-                          <!-- Rating -->
-                          <div class="product-rating"><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i></div>
-                          <!-- Add to Cart --><a class="btn btn-success btn-sm" href="#"><i class="lni lni-plus"></i></a>
-                      </div>
-                  </div>
-              </div>
-              <!-- Single Top Product Card -->
-              <div class="col-6 col-md-4 col-lg-3">
-                  <div class="card product-card">
-                      <div class="card-body">
-                          <!-- Badge--><span class="badge rounded-pill badge-danger">-18%</span>
-                          <!-- Wishlist Button--><a class="wishlist-btn" href="#"><i class="lni lni-heart">                       </i></a>
-                          <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img class="mb-2" src="/img/product/9.png" alt="">
-              <!-- Offer Countdown Timer: Please use event time this format: YYYY/MM/DD hh:mm:ss -->
-              <ul class="offer-countdown-timer d-flex align-items-center shadow-sm" data-countdown="2021/11/23 23:21:29">
-                <li><span class="days">0</span>d</li>
-                <li><span class="hours">0</span>h</li>
-                <li><span class="minutes">0</span>m</li>
-                <li><span class="seconds">0</span>s</li>
-              </ul></a>
-                          <!-- Product Title --><a class="product-title d-block" href="single-product.html">Sneaker Shoes</a>
-                          <!-- Product Price -->
-                          <p class="sale-price">$87<span>$92</span></p>
-                          <!-- Rating -->
-                          <div class="product-rating"><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i></div>
-                          <!-- Add to Cart --><a class="btn btn-success btn-sm" href="#"><i class="lni lni-plus"></i></a>
-                      </div>
-                  </div>
-              </div>
-              <!-- Single Top Product Card -->
-              <div class="col-6 col-md-4 col-lg-3">
-                  <div class="card product-card">
-                      <div class="card-body">
-                          <!-- Badge--><span class="badge rounded-pill badge-danger">-11%</span>
-                          <!-- Wishlist Button--><a class="wishlist-btn" href="#"><i class="lni lni-heart"></i></a>
-                          <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img class="mb-2" src="/img/product/8.png" alt=""></a>
-                          <!-- Product Title --><a class="product-title d-block" href="single-product.html">Wooden Chair</a>
-                          <!-- Product Price -->
-                          <p class="sale-price">$21<span>$25</span></p>
-                          <!-- Rating -->
-                          <div class="product-rating"><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i></div>
-                          <!-- Add to Cart --><a class="btn btn-success btn-sm" href="#"><i class="lni lni-plus"></i></a>
-                      </div>
-                  </div>
-              </div>
-              <!-- Single Top Product Card -->
-              <div class="col-6 col-md-4 col-lg-3">
-                  <div class="card product-card">
-                      <div class="card-body">
-                          <!-- Badge--><span class="badge rounded-pill badge-warning">On Sale</span>
-                          <!-- Wishlist Button--><a class="wishlist-btn" href="#"><i class="lni lni-heart"></i></a>
-                          <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img class="mb-2" src="/img/product/4.png" alt=""></a>
-                          <!-- Product Title --><a class="product-title d-block" href="single-product.html">Polo Shirts</a>
-                          <!-- Product Price -->
-                          <p class="sale-price">$38<span>$41</span></p>
-                          <!-- Rating -->
-                          <div class="product-rating"><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i></div>
-                          <!-- Add to Cart --><a class="btn btn-success btn-sm" href="#"><i class="lni lni-plus"></i></a>
-                      </div>
-                  </div>
-              </div>
+                <div class="card product-card">
+                    <div class="card-body">
+                        <!-- Badge--><span class="badge rounded-pill badge-warning">Sale</span>
+                        <!-- Wishlist Button--><a class="wishlist-btn" href="#"><i class="lni lni-heart">                       </i></a>
+                        <!-- Thumbnail --><a class="product-thumbnail d-block" href="/product/1"><img class="mb-2" src="/img/product/11.png" alt="">
+            <!-- Offer Countdown Timer: Please use event time this format: YYYY/MM/DD hh:mm:ss -->
+            <ul class="offer-countdown-timer d-flex align-items-center shadow-sm" data-countdown="2021/12/31 23:59:59">
+              <li><span class="days">0</span>d</li>
+              <li><span class="hours">0</span>h</li>
+              <li><span class="minutes">0</span>m</li>
+              <li><span class="seconds">0</span>s</li>
+            </ul></a>
+                        <!-- Product Title --><a class="product-title d-block" href="/product/1">Beach Cap</a>
+                        <!-- Product Price -->
+                        <p class="sale-price">₦13<span>₦42</span></p>
+                        <!-- Rating -->
+                        <div class="product-rating"><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i><i class="lni lni-star-filled"></i></div>
+                        <!-- Add to Cart --><a class="btn btn-success btn-sm" href="#"><i class="lni lni-plus"></i></a>
+                    </div>
+                </div>
+            </div>
           </div>
       </div>
   </div>
@@ -332,12 +290,12 @@
                           <div class="product-thumbnail-side">
                               <!-- Badge --><span class="badge badge-success">Sale</span>
                               <!-- Wishlist Button --><a class="wishlist-btn" href="#"><i class="lni lni-heart"></i></a>
-                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img src="/img/product/10.png" alt=""></a>
+                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="#"><img src="/img/product/10.png" alt=""></a>
                           </div>
                           <div class="product-description">
-                              <!-- Product Title --><a class="product-title d-block" href="single-product.html">Modern Sofa</a>
+                              <!-- Product Title --><a class="product-title d-block" href="#">Modern Sofa</a>
                               <!-- Price -->
-                              <p class="sale-price"><i class="lni lni-dollar"></i>$64<span>$89</span></p>
+                              <p class="sale-price"><i class="lni lni-dollar"></i>₦64<span>₦89</span></p>
                               <!-- Rating -->
                               <div class="product-rating"><i class="lni lni-star-filled"></i>4.88 (39)</div>
                               <!-- Buy Now Button --><a class="btn btn-danger btn-sm" href="#"><i class="me-1 lni lni-cart"></i>Buy Now</a>
@@ -352,12 +310,12 @@
                           <div class="product-thumbnail-side">
                               <!-- Badge --><span class="badge badge-primary">Sale</span>
                               <!-- Wishlist Button --><a class="wishlist-btn" href="#"><i class="lni lni-heart"></i></a>
-                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img src="/img/product/7.png" alt=""></a>
+                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="#"><img src="/img/product/7.png" alt=""></a>
                           </div>
                           <div class="product-description">
-                              <!-- Product Title --><a class="product-title d-block" href="single-product.html">Office Chair</a>
+                              <!-- Product Title --><a class="product-title d-block" href="#">Office Chair</a>
                               <!-- Price -->
-                              <p class="sale-price"><i class="lni lni-dollar"></i>$100<span>$160</span></p>
+                              <p class="sale-price"><i class="lni lni-dollar"></i>₦100<span>₦160</span></p>
                               <!-- Rating -->
                               <div class="product-rating"><i class="lni lni-star-filled"></i>4.82 (125)</div>
                               <!-- Buy Now Button --><a class="btn btn-danger btn-sm" href="#"><i class="me-1 lni lni-cart"></i>Buy Now</a>
@@ -372,7 +330,7 @@
                           <div class="product-thumbnail-side">
                               <!-- Badge --><span class="badge badge-danger">-10%</span>
                               <!-- Wishlist Button --><a class="wishlist-btn" href="#"><i class="lni lni-heart"></i></a>
-                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img src="/img/product/12.png" alt="">
+                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="#"><img src="/img/product/12.png" alt="">
                 <!-- Offer Countdown Timer: Please use event time this format: YYYY/MM/DD hh:mm:ss -->
                 <ul class="offer-countdown-timer d-flex align-items-center shadow-sm" data-countdown="2022/12/09 23:59:59">
                   <li><span class="days">0</span>d</li>
@@ -382,9 +340,9 @@
                 </ul></a>
                           </div>
                           <div class="product-description">
-                              <!-- Product Title --><a class="product-title d-block" href="single-product.html">Sun Glasses</a>
+                              <!-- Product Title --><a class="product-title d-block" href="#">Sun Glasses</a>
                               <!-- Price -->
-                              <p class="sale-price"><i class="lni lni-dollar"></i>$24<span>$32</span></p>
+                              <p class="sale-price"><i class="lni lni-dollar"></i>₦24<span>₦32</span></p>
                               <!-- Rating -->
                               <div class="product-rating"><i class="lni lni-star-filled"></i>4.79 (63)</div>
                               <!-- Buy Now Button --><a class="btn btn-danger btn-sm" href="#"><i class="me-1 lni lni-cart"></i>Buy Now</a>
@@ -399,12 +357,12 @@
                           <div class="product-thumbnail-side">
                               <!-- Badge --><span class="badge badge-warning">New</span>
                               <!-- Wishlist Button --><a class="wishlist-btn" href="#"><i class="lni lni-heart"></i></a>
-                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img src="/img/product/13.png" alt=""></a>
+                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="#"><img src="/img/product/13.png" alt=""></a>
                           </div>
                           <div class="product-description">
-                              <!-- Product Title --><a class="product-title d-block" href="single-product.html">Wall Clock</a>
+                              <!-- Product Title --><a class="product-title d-block" href="#">Wall Clock</a>
                               <!-- Price -->
-                              <p class="sale-price"><i class="lni lni-dollar"></i>$31<span>$47</span></p>
+                              <p class="sale-price"><i class="lni lni-dollar"></i>₦31<span>₦47</span></p>
                               <!-- Rating -->
                               <div class="product-rating"><i class="lni lni-star-filled"></i>4.99 (7)</div>
                               <!-- Buy Now Button --><a class="btn btn-danger btn-sm" href="#"><i class="me-1 lni lni-cart"></i>Buy Now</a>
@@ -440,12 +398,12 @@
                           <!-- Badge--><span class="badge badge-warning custom-badge"><i class="lni lni-star"></i></span>
                           <div class="product-thumbnail-side">
                               <!-- Wishlist Button --><a class="wishlist-btn shadow-sm border" href="#"><i class="lni lni-heart"></i></a>
-                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img src="/img/product/14.png" alt=""></a>
+                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="#"><img src="/img/product/14.png" alt=""></a>
                           </div>
                           <div class="product-description">
-                              <!-- Product Title --><a class="product-title d-block" href="single-product.html">Blue Skateboard</a>
+                              <!-- Product Title --><a class="product-title d-block" href="#">Blue Skateboard</a>
                               <!-- Price -->
-                              <p class="sale-price">$39.8<span>$89</span></p>
+                              <p class="sale-price">₦39.8<span>₦89</span></p>
                           </div>
                       </div>
                   </div>
@@ -457,12 +415,12 @@
                           <!-- Badge--><span class="badge badge-warning custom-badge"><i class="lni lni-star"></i></span>
                           <div class="product-thumbnail-side">
                               <!-- Wishlist Button --><a class="wishlist-btn shadow-sm border" href="#"><i class="lni lni-heart"></i></a>
-                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img src="/img/product/15.png" alt=""></a>
+                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="#"><img src="/img/product/15.png" alt=""></a>
                           </div>
                           <div class="product-description">
-                              <!-- Product Title --><a class="product-title d-block" href="single-product.html">Travel Bag</a>
+                              <!-- Product Title --><a class="product-title d-block" href="#">Travel Bag</a>
                               <!-- Price -->
-                              <p class="sale-price">$14.7<span>$21</span></p>
+                              <p class="sale-price">₦14.7<span>₦21</span></p>
                           </div>
                       </div>
                   </div>
@@ -474,12 +432,12 @@
                           <!-- Badge--><span class="badge badge-warning custom-badge"><i class="lni lni-star"></i></span>
                           <div class="product-thumbnail-side">
                               <!-- Wishlist Button --><a class="wishlist-btn shadow-sm border" href="#"><i class="lni lni-heart"></i></a>
-                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img src="/img/product/16.png" alt=""></a>
+                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="#"><img src="/img/product/16.png" alt=""></a>
                           </div>
                           <div class="product-description">
-                              <!-- Product Title --><a class="product-title d-block" href="single-product.html">Cotton T-shirts</a>
+                              <!-- Product Title --><a class="product-title d-block" href="#">Cotton T-shirts</a>
                               <!-- Price -->
-                              <p class="sale-price">$3.69<span>$5</span></p>
+                              <p class="sale-price">₦3.69<span>₦5</span></p>
                           </div>
                       </div>
                   </div>
@@ -491,12 +449,12 @@
                           <!-- Badge--><span class="badge badge-warning custom-badge"><i class="lni lni-star"></i></span>
                           <div class="product-thumbnail-side">
                               <!-- Wishlist Button --><a class="wishlist-btn shadow-sm border" href="#"><i class="lni lni-heart"></i></a>
-                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="single-product.html"><img src="/img/product/6.png" alt=""></a>
+                              <!-- Thumbnail --><a class="product-thumbnail d-block" href="#"><img src="/img/product/6.png" alt=""></a>
                           </div>
                           <div class="product-description">
-                              <!-- Product Title --><a class="product-title d-block" href="single-product.html">Roof Lamp</a>
+                              <!-- Product Title --><a class="product-title d-block" href="#">Roof Lamp</a>
                               <!-- Price -->
-                              <p class="sale-price">$27.9<span>$31</span></p>
+                              <p class="sale-price">₦27.9<span>₦31</span></p>
                           </div>
                       </div>
                   </div>
@@ -511,27 +469,27 @@
       <!-- Collection Slide-->
       <div class="collection-slide owl-carousel">
           <!-- Collection Card-->
-          <div class="card collection-card"><a href="single-product.html"><img src="/img/product/17.jpg" alt=""></a>
+          <div class="card collection-card"><a href="#"><img src="/img/product/17.jpg" alt=""></a>
               <div class="collection-title"><span>Women</span><span>9 new items</span></div>
           </div>
           <!-- Collection Card-->
-          <div class="card collection-card"><a href="single-product.html"><img src="/img/product/19.jpg" alt=""></a>
+          <div class="card collection-card"><a href="#"><img src="/img/product/19.jpg" alt=""></a>
               <div class="collection-title"><span>Men</span><span>29 items</span></div>
           </div>
           <!-- Collection Card-->
-          <div class="card collection-card"><a href="single-product.html"><img src="/img/product/21.jpg" alt=""></a>
+          <div class="card collection-card"><a href="#"><img src="/img/product/21.jpg" alt=""></a>
               <div class="collection-title"><span>Kids</span><span>4 new items</span></div>
           </div>
           <!-- Collection Card-->
-          <div class="card collection-card"><a href="single-product.html"><img src="/img/product/22.jpg" alt=""></a>
+          <div class="card collection-card"><a href="#"><img src="/img/product/22.jpg" alt=""></a>
               <div class="collection-title"><span>Gadget</span><span>11 items</span></div>
           </div>
           <!-- Collection Card-->
-          <div class="card collection-card"><a href="single-product.html"><img src="/img/product/23.jpg" alt=""></a>
+          <div class="card collection-card"><a href="#"><img src="/img/product/23.jpg" alt=""></a>
               <div class="collection-title"><span>Foods</span><span>2 new items</span></div>
           </div>
           <!-- Collection Card-->
-          <div class="card collection-card"><a href="single-product.html"><img src="/img/product/24.jpg" alt=""></a>
+          <div class="card collection-card"><a href="#"><img src="/img/product/24.jpg" alt=""></a>
               <div class="collection-title"><span>Sports</span><span>5 items</span></div>
           </div>
       </div>
@@ -540,3 +498,8 @@
 </div>
 
 <%- include ('partials/footer') %>
+
+
+<script src="/js/function-toggleCart.js"></script>
+<script src="/js/event-toggleCart.js"></script>
+<script src="/js/pagination.js"></script>

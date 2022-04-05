@@ -7,6 +7,7 @@ import passport from "passport";
 
 // Import models
 import { UserModel } from "../models/UserModel.js";
+import { ImageModel } from "../models/ImageModel.js";
 import { ProductModel } from "../models/ProductModel.js";
 
 // Import constants from own file 'app-config.js'
@@ -14,9 +15,11 @@ import {
   VIEWS, SALT_ROUNDS
 
 } from "./../config/app-config.js";
-
+const Image = new ImageModel();
 const User = new UserModel();
 const Product = new ProductModel();
+const currency = '₦'; 
+
 // Controller class
 export class UserController {
 
@@ -87,6 +90,33 @@ export class UserController {
     );
   }
 
+  async goToNotifications(req, res){
+    let user = req.user;
+    let products = [];
+    let images = [];
+    let lastOrders = [];
+    let ordersItems = [];
+    if (typeof(user) !== "undefined") {
+      // cart = await Product.getUserCart(user.id);
+      products = await Product.get();
+      images = await Image.get();
+      lastOrders = await Product.getLastOrderUser(user.id);
+      ordersItems = await Product.getOrderItems();
+    }
+
+    res.render(
+      path.resolve(VIEWS, "public", "user", "notification.ejs"), {
+        title: "Notifications",
+        user: user,
+        products: products,
+        images: images,
+        lastOrders: lastOrders,
+        ordersItems: ordersItems,
+        csrfToken: req.csrfToken()
+      }
+    );
+  }
+
   async newUser(req, res){
     const fullname = req.body.registerName;
     const email = req.body.registerEmail;
@@ -128,7 +158,6 @@ export class UserController {
           csrfToken: req.csrfToken()
         }
       );
-      console.log(newPassword)
     }).catch(error => {
       res.render(
         path.resolve(VIEWS, "public", "user", "reset.ejs"), {
@@ -143,11 +172,35 @@ export class UserController {
   
   async updateProfile(req, res){
     let { profileName, newPassword, confirmPassword } = req.body;
-    
     let hashedPassword = '';
+    let field;
+    const isEmpty = [];
+    
+    for (let key in req.body) {
+      const value = req.body[key];
+      
+      if (value && key != 'confirmPassword' && key != '_csrf') {
+          field = key.startsWith('new') ? 'Password' : 'Name';
+      }
+
+    }
+
+    if (!profileName && !newPassword) {
+      res.render(
+        path.resolve(VIEWS, "public", "user", "edit.ejs"), {
+          title: "Edit profile",
+          user: req.user,
+          error_msg: `Empty fields`,
+          csrfToken: req.csrfToken()
+      });
+      // res.redirect('/user/edit-profile')
+      return;
+    }
+    
     if(newPassword !== '' && confirmPassword !== '') {
       hashedPassword = await bcrypt.hash(newPassword, parseInt(SALT_ROUNDS));
     }
+    
     if (newPassword !== confirmPassword) {
       let error = new Error("Passwords do not match");
       console.log(error);
@@ -162,8 +215,10 @@ export class UserController {
     } else {
       profileName  = profileName || req.user.fullname;
       hashedPassword = hashedPassword || req.user.password;
+
       const updatedAt = Date.now();
       const promise = User.update(req.user, [profileName, hashedPassword, updatedAt]);
+
       promise
       .then(result => {
           req.user.fullname = profileName;
@@ -173,7 +228,7 @@ export class UserController {
             path.resolve(VIEWS, "public", "user", "profile.ejs"), {
               title: "Profile",
               user: req.user,
-              message: result,
+              message: `${field} updated successfully`,
               csrfToken: req.csrfToken()
             }
           );

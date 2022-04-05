@@ -1,3 +1,5 @@
+<%- include ('../partials/navbar2') %>
+
 <div class="page-content-wrapper">
   <div class="container">
     <!-- Profile Wrapper-->
@@ -10,8 +12,12 @@
         <div class="card-body p-4 d-flex align-items-center">
           <div class="user-profile me-3"><img src="/img/bg-img/9.jpg" alt=""></div>
           <div class="user-info">
-            <p class="mb-0 text-white">@designing-world</p>
-            <h5 class="mb-0">Suha Jannat</h5>
+            <p class="mb-0 text-white">Hi</p>
+            <h5 class="mb-0">
+              <% if(typeof(user) !== "undefined") { %>
+                <%- user.fullname %>
+              <% } %>
+            </h5>
           </div>
         </div>
       </div>
