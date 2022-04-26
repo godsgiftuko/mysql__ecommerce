@@ -16,7 +16,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const runDatabase = () => {
   con_createDb.connect((err) => {
     if (err) {
-      throw err;
+      console.log(err);
     }
     // On connection, then do...
     console.log("MySql connected...");

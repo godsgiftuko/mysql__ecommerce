@@ -97,7 +97,7 @@ INSERT INTO products VALUES(8, "Obbo earrings", "Organic lines play with symmetr
 -- INSERT INTO images VALUES(4, 2, "https://i.ibb.co/KhtxtSF/prod-2-1.jpg");
 -- INSERT INTO images VALUES(5, 2, "https://i.ibb.co/0MbnP7H/prod-2-2.jpg");
 -- INSERT INTO images VALUES(6, 2, "https://i.ibb.co/HTqnfZR/prod-2-3.jpg");
--- INSERT INTO images VALUES(7, 3, "https://i.ibb.co/4VvdKr5/prod-3-1.jpg");
+-- INSERT INTO images VappALUES(7, 3, "https://i.ibb.co/4VvdKr5/prod-3-1.jpg");
 -- INSERT INTO images VALUES(8, 3, "https://i.ibb.co/XFwCWQ4/prod-3-2.jpg");
 -- INSERT INTO images VALUES(9, 3, "https://i.ibb.co/883wVz1/prod-3-3.jpg");
 -- INSERT INTO images VALUES(10, 4, "https://i.ibb.co/YRm40qZ/prod-4-1.jpg");

@@ -1,0 +1,12 @@
+GET http://localhost:2000/user/login
+Content-Type: application/json
+
+###
+POST http://localhost:2000/user/login
+Content-Type: application/json
+
+{
+    "_csrf": "_csrf=rK5s3jf2-_xW3pC2yGLYanNYLmgOFW5c761Q",
+    "loginEmail": "ia@gmail.com",
+    "loginPassword": "1234677"
+}
