@@ -32,4 +32,4 @@ The repository contains the files and folders detailed below:
 
 ## ✒️ Author
 
-- **Jorge García Torralba** &#8594; [jorge-garcia](https://code.assemblerschool.com/jorge-garcia/)
+- **God'sgift Matthew Uko** &#8594; [godsgiftuko](https://flowcv.me/godsgiftuko/)
