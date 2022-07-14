@@ -10,7 +10,7 @@
     "create-db": "node ./src/seed/db_creation.js"
   },
   "keywords": [],
-  "author": "Jorge García Torralba",
+  "author": "God'sgift Matthew Uko",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
